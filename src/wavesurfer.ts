@@ -360,10 +360,7 @@ class WaveSurfer extends Player<WaveSurferEvents> {
     }
     if (options.peaks && options.duration) {
       // Create new decoded data buffer from peaks and duration
-      this.decodedData = Decoder.createBuffer(
-        options.peaks,
-        options.duration
-      );
+      this.decodedData = Decoder.createBuffer(options.peaks, options.duration)
     }
     this.renderer.setOptions(this.options)
 
@@ -617,6 +614,9 @@ class WaveSurfer extends Player<WaveSurferEvents> {
 
   /** Unmount wavesurfer */
   public destroy() {
+    if (this.media instanceof WebAudioPlayer) {
+      this.media.destroy()
+    }
     this.emit('destroy')
     this.abortController?.abort()
     this.plugins.forEach((plugin) => plugin.destroy())

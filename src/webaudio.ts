@@ -226,6 +226,10 @@ class WebAudioPlayer extends EventEmitter<WebAudioPlayerEvents> {
     }
     return channels
   }
+
+  public destroy() {
+    this.audioContext.close()
+  }
 }
 
 export default WebAudioPlayer
